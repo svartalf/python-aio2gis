@@ -16,7 +16,7 @@ A Python library for accessing the 2gis API (http://api.2gis.ru) powered with [a
         print(response)
 
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(test_projects_list())
+    loop.run_until_complete(get_projects_list())
 
 ## Contributing
 
