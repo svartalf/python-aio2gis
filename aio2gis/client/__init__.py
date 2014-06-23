@@ -3,7 +3,7 @@ from .binder import bind_api
 
 class API:
 
-    def __init__(self, key, host='catalog.api.2gis.ru', version='1.3', register_views=True):
+    def __init__(self, key, host='catalog.api.2gis.ru', version='1.3', register_views=True, loop=None):
         """2GIS API client
 
         Parameters::
@@ -11,12 +11,14 @@ class API:
             host : base URL for queries
             version : API version for working
             register_views : should library send information to stats server about a firm profile viewing
+            loop : optional event loop
         """
 
         self.key = key
         self.host = host
         self.version = version
         self.register_views = register_views
+        self.loop = loop
 
     """Projects lists
 

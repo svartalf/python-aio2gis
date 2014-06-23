@@ -48,7 +48,7 @@ def execute(self, *args, **kwargs):
 
     url = parse.urlunparse(['http', self.api.host, self.path, None, parse.urlencode(parameters), None])
 
-    response = yield from aiohttp.request('GET', url)
+    response = yield from aiohttp.request('GET', url, loop=self.api.loop)
     body = yield from response.read_and_close()
     # Can't use `read_and_close(decode=True)` because of a https://github.com/KeepSafe/aiohttp/issues/18
     body = json.loads(body.decode('utf-8'))
@@ -58,7 +58,7 @@ def execute(self, *args, **kwargs):
 
     # Register view if required
     if self.register_views and self.api.register_views:
-        response = yield from aiohttp.request('GET', body['register_bc_url'])
+        response = yield from aiohttp.request('GET', body['register_bc_url'], loop=self.api.loop)
         if (yield from response.read_and_close()) == '0':
             raise DgisError(404, 'View registration cannot be processed', 'registerViewFailed')
 
